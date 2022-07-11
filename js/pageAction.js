@@ -1,0 +1,15 @@
+//chrome.tabs.query:查询当前的窗口是否为淘宝，如果是，则将当前的窗口存入到tabs中
+//chrome.pageAction.show:将插件在之前传入到tabs的窗口中进行展示
+chrome.tabs.query({currentWindow:true,url:"https://www.zhipin.com/"},function(tabs){
+    chrome.pageAction.show(tabs[0].id);
+})
+//由content.js实现发送消息的逻辑后，通过pageAction实现接受消息的逻辑
+chrome.runtime.onMessage.addListener(function(request,sender,response){
+    //通过匹配接受到消息的todo是否为showPageAction，从而确定当前接受的消息是否是目标消息，
+    //如果是，则使插件可以在当前页面使用
+    if(request.todo=="showPageAction"){
+        chrome.tabs.query({active:true,currentWindow:true},function(tabs){
+            chrome.pageAction.show(tabs[0].id);
+        });
+    }
+});

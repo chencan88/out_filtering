@@ -1,0 +1,43 @@
+{
+    "manifest_version":2,
+    "name": "boss",
+    "version":"1.0",
+    "description":"外包插件",
+    "icons":{
+        "128":"img/f.png",
+        "48":"img/f.png",
+        "16":"img/f.png"
+    },
+    "page_action":{
+        "default_icon":"img/f.png",
+        "default_title":"pageAction 插件",
+        "default_popup":"popup.html"     
+    },
+  "background":{
+    "scripts":["js/pageAction.js"],
+    "persistent":false
+  },
+    "permissions": [
+	"storage", 
+	"cookies",
+	"contextMenus",
+	"tabs",
+	"alarms", 
+	"http://*/", 
+	"https://*/",
+    "<all_urls>"
+	],
+  "content_scripts": [
+       {
+         "matches": [
+           "https://www.zhipin.com/*",
+           "http://www.zhipin.com/*"
+         ],
+         "js":["js/jquery-3.3.1.js","js/content.js"],
+         "all_frames": true
+       }
+     ]
+
+   
+	
+}
